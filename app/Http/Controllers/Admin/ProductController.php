@@ -4,28 +4,15 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.product.create');
     }
 
     /**
@@ -36,7 +23,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Product::create($request->all());
+
+        } catch (Exception $e) {
+            dd($e);
+            return redirect(route('admin_base_index'))->with("e",$e->getMessage());
+        }
+        $result = 'لیست با موفقیت ساخته شد';
+        return redirect(route('admin_base_index'))->with("result",$result);
     }
 
     /**
@@ -47,7 +42,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('admin.product.show' , compact('product'));
     }
 
     /**
@@ -58,7 +53,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit' , compact('product'));
     }
 
     /**
@@ -70,7 +65,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        try {
+            $product->update($request->all());
+        } catch (Exception $e) {
+            return redirect(route('admin_base_index'))->with('e' , $e->getMessage());
+        }
+        $result = "مطلب ویرایش شد";
+        return redirect(route('admin_base_index'))->with('result');
     }
 
     /**
@@ -81,6 +82,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        try {
+            $product->delete();
+        } catch (Exception $e) {
+            return redirect(route('admin_base_index'))->with('e' , $e->getMessage());
+        }
+        $result = "مطلب حذف شد";
+        return redirect(route('admin_base_index'))->with('result');
     }
 }

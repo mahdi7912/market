@@ -73,7 +73,7 @@ class ProductListController extends Controller
      */
     public function edit(Product_list $product_list)
     {
-        return view('users.edit');
+        return view('users.edit' , compact('product'));
     }
 
     /**

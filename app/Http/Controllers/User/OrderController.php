@@ -50,28 +50,12 @@ class OrderController extends Controller
             }
 
         } catch (Exception $e) {
-            dd($e);
+
             return redirect(route('list_index'))->with("e",$e->getMessage());
         }
-        $result = 'لیست با موفقیت ساخته شد';
+        $result = 'لیست با موفقیت ثبت شد';
         return redirect(route('list_index'))->with("result",$result);
     }
 
 }
 
-
-// $z = [
-//     'phone' => 'sdsdsdsdsd',
-//     'phone' => 'sdsdsdsdsd',
-//     'phone' => 'sdsdsdsdsd',
-//     'phone' => 'sdsdsdsdsd',
-//     'ids' => [
-//         'product_list_id' => 5,'count' => 55,
-//         'product_list_id' => 5,'count' => 55,
-//         'product_list_id' => 5,'count' => 55
-//     ]
-// ];
-
-// foreach ($request->ids as $id ) {
-//     $order->product_lists()->attach($id['product_list_id'],['count' => $id['count']]);
-// }
