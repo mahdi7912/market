@@ -15,8 +15,10 @@ class CreateProductListsTable extends Migration
     {
         Schema::create('product_lists', function (Blueprint $table) {
             $table->id();
-            $table->float('price');
-            $table->float('off');
+            $table->float('max_price');
+            $table->float('min_price');
+            $table->float('max_num');
+            $table->float('min_num');
             $table->integer('user_id');
             $table->integer('pro_id');
             $table->timestamps();

@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    <p>index</p>
+    <a href="{{ route('list_create') }}">create</a>
+
 
 </body>
 </html>

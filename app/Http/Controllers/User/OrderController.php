@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Product_list;
+use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Foreach_;
 
 class OrderController extends Controller
 {
@@ -24,7 +28,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $list = Product_list::orderby('id','ASC');
+        return view('users.order');
     }
 
     /**
@@ -35,51 +40,38 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+
+            $order = Order::create($request[
+
+            ]);
+            foreach ($request->ids as $id) {
+                $order->product_lists()->attach($id['product_list_id'],['count' => $id['count']]);
+            }
+
+        } catch (Exception $e) {
+            dd($e);
+            return redirect(route('list_index'))->with("e",$e->getMessage());
+        }
+        $result = 'لیست با موفقیت ساخته شد';
+        return redirect(route('list_index'))->with("result",$result);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
-    }
 }
+
+
+// $z = [
+//     'phone' => 'sdsdsdsdsd',
+//     'phone' => 'sdsdsdsdsd',
+//     'phone' => 'sdsdsdsdsd',
+//     'phone' => 'sdsdsdsdsd',
+//     'ids' => [
+//         'product_list_id' => 5,'count' => 55,
+//         'product_list_id' => 5,'count' => 55,
+//         'product_list_id' => 5,'count' => 55
+//     ]
+// ];
+
+// foreach ($request->ids as $id ) {
+//     $order->product_lists()->attach($id['product_list_id'],['count' => $id['count']]);
+// }

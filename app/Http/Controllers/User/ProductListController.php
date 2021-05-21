@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
+use App\Models\Basement;
+use App\Models\Order;
 use App\Models\Product_list;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProductListController extends Controller
@@ -14,7 +18,8 @@ class ProductListController extends Controller
      */
     public function index()
     {
-//
+
+        return view('users.index');
     }
 
     /**
@@ -24,7 +29,8 @@ class ProductListController extends Controller
      */
     public function create()
     {
-        //
+        $base = Basement::orderby('id', 'ASC')->paginate(20);
+        return view('users.create', compact('base'));
     }
 
     /**
@@ -35,7 +41,16 @@ class ProductListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        try {
+            Product_list::create($request->all());
+
+        } catch (Exception $e) {
+            dd($e);
+            return redirect(route('list_index'))->with("e",$e->getMessage());
+        }
+        $result = 'لیست با موفقیت ساخته شد';
+        return redirect(route('list_index'))->with("result",$result);
     }
 
     /**
@@ -44,9 +59,10 @@ class ProductListController extends Controller
      * @param  \App\Models\Product_list  $product_list
      * @return \Illuminate\Http\Response
      */
-    public function show(Product_list $product_list)
+    public function show($order)
     {
-        //
+        $order = Order::with('product_lists')->find($order);
+        return view('users.show',compact('order'));
     }
 
     /**
@@ -57,7 +73,7 @@ class ProductListController extends Controller
      */
     public function edit(Product_list $product_list)
     {
-        //
+        return view('users.edit');
     }
 
     /**
@@ -69,8 +85,16 @@ class ProductListController extends Controller
      */
     public function update(Request $request, Product_list $product_list)
     {
-        //
-    }
+        try {
+            $product_list->update($request->all());
+
+         } catch (Exception $e) {
+             return redirect(route('list_edit'))->with('e',$e->getMessage());
+         }
+         $result = "مطلب ویرایش شد";
+         return redirect(route('list_edit'))->with('result');
+     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -80,6 +104,12 @@ class ProductListController extends Controller
      */
     public function destroy(Product_list $product_list)
     {
-        //
+        try {
+            $product_list->delete();
+
+
+        } catch (Exception $e) {
+            return redirect(route('list_destroy'))->with('e',$e->getMessage());
+        }
     }
 }
