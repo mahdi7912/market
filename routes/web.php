@@ -1,11 +1,13 @@
 <?php
 
 
-use App\Http\Controllers\admin\ProductController;
+use App\Http\Controllers\Admin\ProductController;
 
-use App\Http\Controllers\admin\BasementController;
+use App\Http\Controllers\Admin\BasementController;
 
-use App\Http\Controllers\User\OrderController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\User\ProductListController;
 
@@ -24,16 +26,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix('order')->group(function() {
+Route::post('/users/login',[OrderController::class , 'login']);
 
-Route::post('/store',[OrderController::class , 'store'])->name('order_store');
+Route::post('/list/{user}',[OrderController::class , 'store']);
 
-Route::get('/create',[OrderController::class , 'create'])->name('order_create');
-});
+Route::get('/list/{user}',[OrderController::class , 'create']);
 
 
-Route::prefix('users')->group(function() {
-
+Route::middleware('auth')->prefix('users')->group(function() {
 
     Route::get('/create',[ProductListController::class , 'create'])->name('list_create');
 
@@ -41,17 +41,25 @@ Route::prefix('users')->group(function() {
 
     Route::post('/store',[ ProductListController::class , 'store' ])->name('list_store');
 
-    Route::get('/edit/{Product_list}',[ ProductListController::class , 'edit' ])->name('list_edit');
+    Route::get('/edit/{productList}',[ ProductListController::class , 'edit' ])->name('list_edit');
 
-    Route::get('/show/{Product_list}',[ ProductListController::class , 'show' ])->name('list_show');
+    Route::get('/show/{productList}',[ ProductListController::class , 'show' ])->name('list_show');
 
-    Route::post('/update/{Product_list}',[ ProductListController::class , 'update' ])->name('list_update');
+    Route::put('/update/{productList}',[ ProductListController::class , 'update' ])->name('list_update');
 
-    Route::get('/destroy/{Product_list}',[ ProductListController::class , 'destroy' ])->name('list_destroy');
+    Route::delete('/destroy/{productList}',[ ProductListController::class , 'destroy' ])->name('list_destroy');
 
 });
 
-Route::prefix('admin/basement')->group(function() {
+Route::middleware('auth')->prefix('user/order')->group(function() {
+
+    Route::get('/',[ \App\Http\Controllers\User\OrderController::class , 'index' ]);
+
+    Route::get('/{order}',[ \App\Http\Controllers\User\OrderController::class , 'show' ]);
+
+});
+
+Route::middleware('auth')->prefix('admin/basement')->group(function() {
 
     Route::get('/',[ BasementController::class , 'index' ])->name('admin_base_index');
 
@@ -67,22 +75,36 @@ Route::prefix('admin/basement')->group(function() {
 
 });
 
-Route::prefix('admin/product')->group(function() {
+Route::middleware('auth')->prefix('admin/product')->group(function() {
 
-    Route::get('/create',[ProductController::class , 'create'])->name('admin_pro_create');
+    Route::get('/',[ProductController::class , 'index']);
+
+    Route::get('/create',[ProductController::class , 'create']);
 
     Route::post('/store',[ProductController::class , 'store'])->name('admin_pro_store');
 
-    Route::get('/edit/{Product}',[ProductController::class , 'edit'])->name('admin_pro_edit');
+    Route::get('/edit/{product}',[ProductController::class , 'edit'])->name('admin_pro_edit');
 
-    Route::post('/update/{Product}',[ProductController::class , 'update'])->name('admin_pro_upload');
+    Route::put('/update/{product}',[ProductController::class , 'update'])->name('admin_pro_upload');
 
-    Route::get('/destroy/{Product}',[ProductController::class , 'destroy'])->name('admin_pro_destroy');
+    Route::delete('/destroy/{product}',[ProductController::class , 'destroy'])->name('admin_pro_destroy');
 
 });
 
+Route::middleware('auth')->prefix('admin/user')->group(function() {
 
+    Route::get('/',[UserController::class , 'index']);
 
+    Route::get('/create',[UserController::class , 'create']);
 
+    Route::post('/store',[UserController::class , 'store']);
+
+    Route::get('/edit/{user}',[UserController::class , 'edit']);
+
+    Route::put('/update/{user}',[UserController::class , 'update']);
+
+    Route::delete('/destroy/{user}',[UserController::class , 'destroy']);
+
+});
 
 Auth::routes();

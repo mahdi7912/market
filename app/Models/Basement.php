@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Basement extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'price',
-        'pro_id',
-        'arrival',
-        'count',
-        'expire',
-    ];
+
+    protected $guarded = ['id'];
+
 }

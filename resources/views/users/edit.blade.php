@@ -1,15 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <p>index</p>
-    <a href="{{ route('list_create') }}">create</a>
+@extends('layouts.app')
 
-
-</body>
-</html>
+@section('content')
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-6">
+                    <form action="{{ url('/users/update/' . $productList->id ) }}" method="post">
+                        @csrf
+                        @method('put')
+                        <input value="{{ $productList->max_price }}" type="number" class="mt-2 form-control"
+                               name="max_price" placeholder="حداکثر قیمت"/>
+                        <input value="{{ $productList->min_price }}" type="number" class="mt-2 form-control"
+                               name="min_price" placeholder="حداقل قیمت"/>
+                        <input value="{{ $productList->max_num }}" type="number" class="mt-2 form-control"
+                               name="max_num" placeholder="حداکثر تعداد"/>
+                        <input value="{{ $productList->min_num }}" type="number" class="mt-2 form-control"
+                               name="min_num" placeholder="حداقل تعداد"/>
+                        <select name="product_id" class="mt-2 form-control">
+                            @foreach($products as $product)
+                                <option value="{{ $product->id }}"
+                                        @if($productList->product->id == $product->id) selected @endif>
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <button class="btn btn-primary mt-2">ثبت</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

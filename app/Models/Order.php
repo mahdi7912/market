@@ -9,14 +9,10 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'total',
-        'phone',
-        'name',
-    ];
+    protected $guarded = ['id'];
 
-    public function product_lists()
+    public function productLists()
     {
-        return $this->belongsToMany(Product_list::class)->withPivot('count');
+        return $this->belongsToMany(ProductList::class)->withPivot('count');
     }
 }

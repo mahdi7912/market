@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->string('phone');
             $table->text('name');
             $table->float('total');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }

@@ -15,11 +15,11 @@ class CreateBasementsTable extends Migration
     {
         Schema::create('basements', function (Blueprint $table) {
             $table->id();
-            $table->integer('count');
-            $table->float('price');
-            $table->integer('pro_id');
-            $table->timestamp('arrival');
-            $table->timestamp('expire');
+            $table->integer('count')->unsigned();
+            $table->float('price')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamp('arrival')->nullable();
+            $table->timestamp('expire')->nullable();
             $table->timestamps();
         });
     }

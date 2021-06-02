@@ -20,7 +20,7 @@ class CreateProductListsTable extends Migration
             $table->float('max_num');
             $table->float('min_num');
             $table->integer('user_id');
-            $table->integer('pro_id');
+            $table->integer('product_id');
             $table->timestamps();
         });
     }

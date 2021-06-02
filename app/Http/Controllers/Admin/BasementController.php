@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Basement;
@@ -43,7 +43,6 @@ class BasementController extends Controller
             Basement::create($request->all());
 
         } catch (Exception $e) {
-            dd($e);
             return redirect(route('admin_base_index'))->with("e",$e->getMessage());
         }
         $result = 'كالا با موفقیت به  انبار اضافه شد';
