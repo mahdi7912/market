@@ -43,31 +43,31 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
                         <li class="nav-item">
-                            <a href="{{ url('/users/create') }}" class="nav-link">
+                            <a href="{{ '/users/create' }}" class="nav-link">
                                 <i class="nav-icon fa fa-circle-o text-danger"></i>
                                 <p class="text">ایجاد لیست</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/users') }}" class="nav-link">
+                            <a href="{{ '/users' }}" class="nav-link">
                                 <i class="nav-icon fa fa-circle-o text-danger"></i>
                                 <p class="text">مشاهده لیست</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/admin/product') }}" class="nav-link">
+                            <a href="{{ '/admin/product' }}" class="nav-link">
                                 <i class="nav-icon fa fa-circle-o text-danger"></i>
                                 <p class="text">مشاهده محصولات</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/admin/product/create') }}" class="nav-link">
+                            <a href="{{ '/admin/product/create' }}" class="nav-link">
                                 <i class="nav-icon fa fa-circle-o text-danger"></i>
                                 <p class="text">ایجاد محصول</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('/user/order') }}" class="nav-link">
+                            <a href="{{ '/user/order' }}" class="nav-link">
                                 <i class="nav-icon fa fa-circle-o text-warning"></i>
                                 <p>مشاهده سفارش ها</p>
                             </a>
@@ -81,6 +81,11 @@
     <div class="content-wrapper">
         <section class="content">
             <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <a class="font-weight-bold h3" href="{{ '/list/' . auth()->id() }}">لینک شما</a>
+                    </div>
+                </div>
                 @yield('content')
             </div>
         </section>

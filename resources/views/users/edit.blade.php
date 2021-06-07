@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
-                    <form action="{{ url('/users/update/' . $productList->id ) }}" method="post">
+                    <form action="{{ '/users/update/' . $productList->id }}" method="post">
                         @csrf
                         @method('put')
                         <input value="{{ $productList->max_price }}" type="number" class="mt-2 form-control"

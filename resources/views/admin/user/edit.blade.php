@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
-                    <form action="{{ url('/admin/user/update/' . $user->id ) }}" method="post">
+                    <form action="{{ '/admin/user/update/' . $user->id }}" method="post">
                         @csrf
                         @method('put')
                         <input value="{{ $user->name }}" class="mt-2 form-control" name="name" placeholder="نام کاربر" />

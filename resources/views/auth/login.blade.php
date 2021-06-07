@@ -282,9 +282,8 @@
 
 <div class="wrapper fadeInDown">
     <div id="formContent">
-        <form method="post" action="{{ url('/users/login') }}">
+        <form method="post" action="/users/login">
             @csrf
-            @method('post')
             <input type="text" id="login" class="fadeIn second" name="code" placeholder="کد">
             <input type="text" id="password" class="fadeIn third" name="password" placeholder="رمز">
             <input type="submit" class="fadeIn fourth" value="ارسال">

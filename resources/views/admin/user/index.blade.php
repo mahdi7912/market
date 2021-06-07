@@ -17,10 +17,10 @@
                                 <td>{{ $user->name }}</td>
                                 <td>
                                     <div class="d-flex flex-row">
-                                        <a class="mx-1 btn btn-primary" href="{{ url('/admin/user/edit/' . $user->id ) }}">
+                                        <a class="mx-1 btn btn-primary" href="{{ '/admin/user/edit/' . $user->id }}">
                                             ویرایش
                                         </a>
-                                        <form method="post" action="{{ url('/admin/user/destroy/' . $user->id) }}">
+                                        <form method="post" action="{{ '/admin/user/destroy/' . $user->id }}">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger">حذف</button>

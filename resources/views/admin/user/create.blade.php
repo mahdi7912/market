@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
-                    <form action="{{ url('/admin/user/store') }}" method="post">
+                    <form action="{{ '/admin/user/store' }}" method="post">
                         @csrf
                         <input class="mt-2 form-control" name="name" placeholder="نام کاربر" />
                         <input class="mt-2 form-control" name="phone" placeholder="تلفن" />

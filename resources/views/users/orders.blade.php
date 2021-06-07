@@ -19,7 +19,7 @@
                                 <td>{{ $order->name }}</td>
                                 <td>{{ $order->phone }}</td>
                                 <td>{{ $order->total }}</td>
-                                <td><a href="{{ url('/user/order/' . $order->id) }}">مشاهده</a></td>
+                                <td><a href="{{ '/user/order/' . $order->id }}">مشاهده</a></td>
                             </tr>
                         @empty
                             <tr>

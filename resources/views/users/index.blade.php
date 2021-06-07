@@ -25,10 +25,10 @@
                                 <td>{{ $productList->max_num }}</td>
                                 <td>
                                     <div class="d-flex flex-row">
-                                        <a class="mx-1 btn btn-primary" href="{{ url('/users/edit/' . $productList->id ) }}">
+                                        <a class="mx-1 btn btn-primary" href="{{ '/users/edit/' . $productList->id }}">
                                             ویرایش
                                         </a>
-                                        <form method="post" action="{{ url('/users/destroy/' . $productList->id) }}">
+                                        <form method="post" action="{{ '/users/destroy/' . $productList->id }}">
                                             @csrf
                                             @method('delete')
                                             <button class="btn btn-danger">حذف</button>

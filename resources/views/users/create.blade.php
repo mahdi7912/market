@@ -5,7 +5,7 @@
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-6">
-                    <form action="{{ url('/users/store') }}" method="post">
+                    <form action="{{ '/users/store' }}" method="post">
                         @csrf
                         <input type="number" class="mt-2 form-control" name="max_price" placeholder="حداکثر قیمت" />
                         <input type="number" class="mt-2 form-control" name="min_price" placeholder="حداقل قیمت" />
